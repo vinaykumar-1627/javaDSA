@@ -1,0 +1,11 @@
+class Solution {
+    public int minMoves(int[] nums) {
+        int max=0;
+        for(int ele :nums) // for loop can run 1 line without  {} braces but with the use of nesting/ nested loop we can run multipe line of codes after the for loop without using {}
+        if(ele>max)
+        max=ele;
+        int moves=0;
+        for(int ele:nums) moves+=(max-ele);
+        return moves;
+    }
+}
