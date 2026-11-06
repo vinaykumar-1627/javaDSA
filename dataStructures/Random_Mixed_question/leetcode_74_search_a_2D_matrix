@@ -1,0 +1,18 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        // if this matrix has m*n order m-rew & n-columns
+       int m=matrix.length;
+       int n=matrix[0].length;
+       int low = 0;  int high= m*n - 1;
+       while( low<=high){
+        int mid=low + (high-low)/2;
+        int row=mid/n; // we are getting the row 
+        int col=mid%n; // we are getting the column
+        int val=matrix[row][col];
+        if(val==target) return true;
+        else if(target<val) high=mid-1;
+        else low=mid+1;
+       }
+       return false;
+    }
+}
