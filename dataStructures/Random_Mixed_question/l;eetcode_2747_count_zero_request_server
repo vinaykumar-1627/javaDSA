@@ -1,0 +1,18 @@
+class Solution {
+    public int[] countServers(int n, int[][] logs, int x, int[] queries) {
+        int[] arr= new int[queries.length];
+        // Arrays.sort(logs, (a, b) -> Integer.compare(a[1], b[1]));
+        int i=0;
+        while(i<queries.length){
+            int min=queries[i]-x; // finds the lower bound to of the request time
+            int max=queries[i]; // finds the upper bound   "  "  "     "      "  
+            Set<Integer> activeServer= new HashSet<>();
+            for(int j=0;j<logs.length;j++){
+                if(logs[j][1]>=min && logs[j][1]<=max) activeServer.add(logs[j][0]); // this line counts the no of active servers in  the given time of interval 
+            }
+            arr[i] = n-activeServer.size(); // calculates the no of inactive servers 
+            i++;
+        }
+        return arr;
+    }
+}
