@@ -1,0 +1,23 @@
+class Solution {
+	static List<Integer> firstNegInt(int arr[], int k) {
+		// code here
+		int low = 0; int high = 0;
+		ArrayList<Integer> list = new ArrayList<>();
+		Queue<Integer> q = new ArrayDeque<>();
+		while (high<k) {
+			if (arr[high]<0) q.offer(high);
+			high++;
+		}
+		if(!q.isEmpty()) list.add(arr[q.peek()]);
+		else list.add(0);
+		low++;
+		while (high<arr.length ) {
+			while(!q.isEmpty() && q.peek()<low)  q.poll();
+			if(arr[high]<0) q.offer(high);
+		    if(!q.isEmpty()) list.add(arr[q.peek()]);
+			else list.add(0);
+			low++; high++;
+		}
+		return list;
+	}
+}
