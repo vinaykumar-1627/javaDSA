@@ -1,0 +1,17 @@
+class Solution {
+    public int[] findErrorNums(int[] nums) {
+        int actualsum = nums.length*(nums.length + 1)/2;
+        Set<Integer> set = new HashSet<>();
+        int numsum=0; int duplicate=0; int missing=0;
+        for(int ele: nums) {
+            if(!set.contains(ele)) { 
+               set.add(ele);
+               numsum+=ele;
+            }
+            else duplicate = ele;
+        }
+        missing = actualsum - numsum;
+        int[] arr={duplicate,missing};
+        return arr;
+    }
+}
