@@ -1,0 +1,29 @@
+class Solution {
+    public int romanToInt(String s) {
+        int sum=0;
+        int I=1,V=5,X=10,L=50,C=100,D=500,M=1000;
+        int i=0; int n=s.length();
+        int pre=0;
+        while(i<n){
+            int val=0;
+            char ch=s.charAt(i); i++;
+            switch(ch){
+                case 'I':{val=I;break;}
+                case 'V':{val=V;break;}
+                case 'X':{val=X;break;}
+                case 'L':{val=L;break;}
+                case 'C':{val=C;break;}
+                case 'D':{val=D;break;}
+                case 'M':{val=M;break;}
+            }
+            if(pre<val) {
+                if( pre==I && val<=X) sum-=2*pre;
+                if( pre==X && val<=C) sum-=2*pre;
+                if( pre==C && val<=M) sum-=2*pre;
+            }
+            sum+=val;
+            pre=val;
+        }
+        return sum;
+    }
+}
