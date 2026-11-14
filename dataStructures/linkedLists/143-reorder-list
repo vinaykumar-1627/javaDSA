@@ -1,0 +1,61 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public void reorderList(ListNode head) {
+        if(head==null || head.next==null) return ;
+        ListNode temp=head;
+        int len=0;
+        while(temp!=null){
+            len++;
+            temp=temp.next;
+        }
+        int n=0;
+        if(len%2==0) n=len/2;
+        else n=(len/2) +1;
+        temp=head;
+        for(int i=1;i<n;i++){
+            temp=temp.next;
+        }
+        //  now temp is at (n)th position 
+        ListNode l2=temp.next;// 2nd list contains the nodes from middle to the end, this list is need to reverse 
+        ListNode l1=head;// 1st list contains the nodes from first to middle of the list 
+        temp.next=null; // break the list from the nth position that divides the list into two parts 
+        // next step 
+        // reverse the list l2
+        ListNode curr=l2;
+        ListNode ford=l2;
+        ListNode pre=null;
+        while(curr!=null){
+            ford=curr.next;
+            curr.next=pre;
+            pre=curr;
+            curr=ford;
+        }
+        curr=pre;
+        // last step- called the merging step
+        // merge reversed list with the curr list, the very first node will be the l1's first node 
+        // now merge two lists l1 and curr
+        ListNode ans=new ListNode(-1);
+        ListNode dummy=ans;
+        while(l1!=null && curr!=null){
+            dummy.next=l1;
+            l1=l1.next;
+            dummy=dummy.next;
+            dummy.next=curr;
+            curr=curr.next;
+            dummy=dummy.next;
+        }
+        if(curr!=null) dummy.next=curr;
+        if(l1!=null) dummy.next=l1;
+        ans=ans.next;
+        return ;
+    }
+}
