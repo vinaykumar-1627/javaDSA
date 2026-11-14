@@ -1,0 +1,47 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * }
+ */
+class Solution {
+    public ListNode swapPairs(ListNode head) {
+        if(head==null || head.next==null) return head;
+        int i=1;
+        ListNode dummy=head;
+        ListNode t1=new ListNode(-1);// contains the odd indexed nodes
+        ListNode d1=t1;//holding the head of the list t1 
+        ListNode t2=new ListNode(-1);// contains the even indexed nodes
+        ListNode d2=t2;// holding the head fo the list t2
+        while(dummy!=null){
+            if(i%2==0){
+                t2.next=dummy;
+                t2=t2.next;
+            }
+            else{
+                t1.next=dummy;
+                t1=t1.next;
+            }
+            dummy=dummy.next;
+            i++;
+        }
+        t1.next=null;d1=d1.next;
+        t2.next=null;d2=d2.next;
+        ListNode merged=new ListNode(0);
+        ListNode mergedTemp=merged;
+        while(d1!=null && d2!=null){
+            merged.next=d2; d2=d2.next;
+            merged=merged.next;
+            merged.next=d1; d1=d1.next;
+            merged=merged.next;
+        }
+        if(d1!=null) merged.next=d1;
+        if(d2!=null) merged.next=d2;
+
+        return mergedTemp.next;
+    }
+}
